@@ -1,3 +1,13 @@
+
+The project uses React , Axios, React bootstrap , Redux Redux Thunk, React Tostifi , Custum Modals, Loader Overlay , React Loader Spinner,Secured Routes. 
+JWT and JWT refresh Token.
+
+
+
+
+Requires refactoring and Cleanup
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
