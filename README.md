@@ -2,9 +2,6 @@
 The project uses React , Axios, React bootstrap , Redux Redux Thunk, React Tostifi , Custum Modals, Loader Overlay , React Loader Spinner,Secured Routes. 
 JWT and JWT refresh Token.
 
-
-
-
 Requires refactoring and Cleanup
 
 

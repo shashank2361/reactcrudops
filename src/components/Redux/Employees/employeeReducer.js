@@ -1,7 +1,6 @@
 import { findAllByTestId } from "@testing-library/react"
-import { GETALL_FAILURE, GETALL_REQUEST, GETALL_SUCCESS } from "../Login/loginTypes"
-import { EDIT_FAILURE, EDIT_REQUEST, EDIT_SUCCESS, GETALL_LOCATION, SAVE_FAILURE, SAVE_REQUEST, SAVE_SUCCESS } from "./employeeTypes"
-
+ import { GETALL_REQUEST ,  GETALL_SUCCESS , GETALL_FAILURE, EDIT_FAILURE, EDIT_REQUEST, EDIT_SUCCESS, GETALL_LOCATION, SAVE_FAILURE, SAVE_REQUEST, SAVE_SUCCESS } from "./employeeTypes"
+//  
 
 const intialState = {
     employees: [],

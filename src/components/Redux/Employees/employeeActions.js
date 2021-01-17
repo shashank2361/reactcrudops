@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GETALL_FAILURE, GETALL_REQUEST, GETALL_SUCCESS } from '../Login/loginTypes'
+import { GETALL_FAILURE, GETALL_REQUEST, GETALL_SUCCESS } from '../Employees/employeeTypes';
 import {  OPEN_ALERT, TOGGLE_ALERT ,CLOSE_ALERT} from '../Alert/alertTypes'
  
 import { EDIT_FAILURE, EDIT_REQUEST, EDIT_SUCCESS, GETALL_LOCATION, SAVE_REQUEST, SAVE_SUCCESS ,SAVE_FAILURE} from './employeeTypes'
