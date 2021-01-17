@@ -1,0 +1,14 @@
+export const LOGIN_REQUEST = 'LOGIN_REQUEST' 
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS' 
+export const LOGIN_FAILURE =  'LOGIN_FAILURE' 
+
+export const LOGOUT_SUCCESS =  'LOGIN_FAILURE' 
+
+
+export const LOGOUT = 'USERS_LOGOUT' 
+
+export const GETALL_REQUEST = 'GETALL_REQUEST' 
+export const GETALL_SUCCESS = 'GETALL_SUCCESS' 
+export const GETALL_FAILURE = 'GETALL_FAILURE' 
+
+

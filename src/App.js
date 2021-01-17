@@ -1,25 +1,88 @@
-import logo from './logo.svg';
-import './App.css';
+import SignUpContainer from './components/SignUpContainer';
 
-function App() {
+import { connect  } from 'react-redux'
+import { Fragment } from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter, Link, Switch, NavLink, Route, Router ,Redirect } from 'react-router-dom';
+import LoginContainer from './components/LoginContainer';
+// import { Router } from 'react-router';
+import NotFound from './components/NotFound';
+import Home from './components/Home';
+import { history } from './components/Helpers/history'
+import { PrivateRoute, SecuredLoginRoute, SecuredRoute } from './components/PrivateRoute';
+import EmployeeCreate from './components/EmployeeCreate';
+import FormValidate from './components/FormValidate';
+import AlertSuccessModal from './components/AlertSuccessModal'
+import { Button, Modal, Row, Container, Col, ButtonGroup } from 'react-bootstrap';
+import { ToastContainer, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './App.css';
+import  AuthPage from './components/Pages/AuthPage';
+import Spinner from './components/spinner/spinner';
+ 
+
+
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <Container>
+        <Row>
+        {/* (props.isLoading || props.emps.editLoading || props.emps.saveLoading )? */}
+          <ToastContainer position='top-right' autoClose={2000}    hideProgressBar transition={Slide} />
+              <Spinner/>   
+              <AlertSuccessModal/>
+            <div className="App">
+              {
+                 !props.login.loggedIn ?
+                 (
+                  <Switch>
+                     <Route exact path="/auth" component={AuthPage} />
+                     <Redirect to="/auth" />
+                  </Switch>
+                 ) : 
+                 (
+                  <Switch>
+                     <Route path="/home" component={Home} />
+                     <Route exact path="/EmployeeCreate" component={EmployeeCreate}></Route>
+                     <Route exact path="/FormValidate" component={FormValidate}></Route>
+                     <Redirect to="/home" />
+                  </Switch>
+                 )
+              }
+            </div>
+        </Row>
+      </Container>
+    </Fragment>
   );
 }
+const mapStateToProps = (state) =>  {
+  console.log(state)
+  return {
+    isLoading : state.loading,
+    emps : state.emps,
+    login : state.login,
+    isAlert: state.alert
+  }
+} 
+export default connect(mapStateToProps)(App);
 
-export default App;
+ 
+
+
+
+// <Switch>
+// <Route exact path="/" component={SignUpContainer}></Route>
+// {/* <Route   path="/SignUpContainer" component={SignUpContainer}></Route> */}
+// <SecuredLoginRoute path="/LoginContainer" component={LoginContainer}></SecuredLoginRoute>
+// {/* <Route exact path = "/home" component={Home} /> */}
+// <SecuredRoute path="/home" component={Home} />
+// <Route exact path="/EmployeeCreate" component={EmployeeCreate}></Route>
+// <Route exact path="/FormValidate" component={FormValidate}></Route>
+// {/*         
+// <Router history={history}>
+//      <div>
+//    <PrivateRoute exact path="/Home" component={Home} />
+//  </div>
+// </Router> */}
+// <Route component={NotFound}></Route>
+// </Switch>
