@@ -12,9 +12,7 @@ axios.defaults.baseURL = 'https://localhost:44389/';
 
 axios.interceptors.request.use((config) => {
     const userObj = JSON.parse(window?.localStorage?.getItem('userObj'));
-    //  var jwt_Token_decoded = jwt_decode(userObj?.token);
-    //  console.log("Jwt exp",  new Date(jwt_Token_decoded.exp * 1000)?.toUTCString())
-    //  console.log(new Date(Date.now()).toUTCString())
+
     if (userObj && userObj?.token)
         config.headers.Authorization = `Bearer ${userObj?.token}`
     return config;
@@ -36,7 +34,7 @@ axios.interceptors.response.use(response => {
             // console.log(originalReq);
             // console.log(error);
             const { status, data, config } = error?.response;
-            console.log('severe error ', status, data, config)
+            console.log('severe error ', status, data, config, config.method)
             const userObj = JSON.parse(window?.localStorage?.getItem('userObj'));
             if (error && error?.response?.status === 401 && error?.config && !error?.config?.__isRetryRequest) {
                 originalReq._retry = true;
@@ -73,10 +71,10 @@ axios.interceptors.response.use(response => {
 
                 resolve(res);
             }
-            else {
-
-                if (status === 400) {
-                    toast.error( data.message)
+       
+                if (status ===  400  && config.method === 'put') {
+                    console.log("inside put failed" , data?.title)
+                    toast.error("api failed" + data.title ) 
                 }
 
                 if ((error?.message === 'Network Error' || error?.message === "Error: Network Error") && !error?.response) {
@@ -91,16 +89,19 @@ axios.interceptors.response.use(response => {
                     console.log('severe error ', status)
                     toast.error('Severe Error - check the terminal for more info?')
                 }
-            }
+             
              throw error.response;
            // return Promise.reject(error);
         });
-        //     console.log("agent error", error.response)
-        //     throw error.response;
+  
     })
 
 
 const responseBody = (response) => response;
+const erorr = ( err) => {
+    console.log(err)
+    return err;
+};
 
 const sleep = (ms) => (response) => (resolve =>
     setTimeout(() => resolve(response), ms));
@@ -109,7 +110,7 @@ const sleep = (ms) => (response) => (resolve =>
 const requests = {
     get: (url) => axios.get(url).then(responseBody),
     post: (url, body) => axios.post(url, body).then(responseBody),
-    put: (url, body) => axios.put(url, body).then(responseBody),
+    put: (url, body) => axios.put(url, body).then(responseBody) ,
     del: (url) => axios.delete(url).then(responseBody)
 }
 
@@ -137,3 +138,9 @@ const User = {
 }
 
 export default { CrudOperations, User };
+
+
+
+    //  var jwt_Token_decoded = jwt_decode(userObj?.token);
+    //  console.log("Jwt exp",  new Date(jwt_Token_decoded.exp * 1000)?.toUTCString())
+    //  console.log(new Date(Date.now()).toUTCString())

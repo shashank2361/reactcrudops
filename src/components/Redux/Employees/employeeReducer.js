@@ -5,41 +5,27 @@ import { findAllByTestId } from "@testing-library/react"
 const intialState = {
     employees: [],
     locations: [],
-//    loading: false,
     success: false,
     submitted: false,
-   // editLoading: false,
-    editSuccess: false,
-    saveLoading: false,
+   // editSuccess: false,
     saveSuccess: false,
     employee: {},
-    error: '',
-
-
+    error: null,
 }
-
 
 const employeeReducer = (state = intialState, action) => {
 
     switch (action.type) {
-        case GETALL_REQUEST:
-            return {
-                ...state, 
-                // loading: true, 
-                success: false,
-            }
-
+       
         case GETALL_SUCCESS:
             return {
                 ...state,  
-                // loading: false,
                 success: true,
                 employees: action.payload
             }
 
         case GETALL_FAILURE:
             return {
-                //loading: false,
                 success: false,
                 employees: [],
                 error: action.payload
@@ -52,55 +38,34 @@ const employeeReducer = (state = intialState, action) => {
 
         case EDIT_FAILURE:
             return {
-                 
-                // editLoading: false,
-                editSuccess: false,
-                error : action.payload,
+                 error : action.payload,
                 employees: [],
-               
-
             }
 
         case EDIT_REQUEST:
             return {
-                ...state, 
-                //editLoading: true, 
-                editSuccess: false
-            }
+                ...state
+             }
 
         case EDIT_SUCCESS:
             return {
                 ...state, 
-                //editLoading: false,
-                editSuccess: true,
+                // editSuccess: true,
                 employee: action.payload
             }
 
         case SAVE_REQUEST:
             return {
                 ...state, 
-                //saveLoading: true, 
                 saveSuccess: false
             }
-
         case SAVE_SUCCESS:
             return {
                 ...state, 
-                //saveLoading: false,
                 saveSuccess: true,
                 error: ''
             }
-
-
-        case SAVE_FAILURE:
-            return {
-                // saveLoading: false,
-                saveSuccess: false,
-                employees: {}
-
-            }
-
-
+       
         default: return state
 
     }
@@ -108,3 +73,17 @@ const employeeReducer = (state = intialState, action) => {
 
 
 export default employeeReducer
+
+ // case GETALL_REQUEST:
+        //     return {
+        //         ...state, 
+
+        //         success: false,
+        //     }
+
+        // case SAVE_FAILURE:
+        //     return {
+        //          saveSuccess: false,
+        //         employees: {}
+
+        //     }

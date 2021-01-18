@@ -9,10 +9,10 @@ import LoginContainer from './components/LoginContainer';
 import NotFound from './components/NotFound';
 import Home from './components/Home';
 import { history } from './components/Helpers/history'
-import { PrivateRoute, SecuredLoginRoute, SecuredRoute } from './components/PrivateRoute';
+import { PrivateRoute, SecuredLoginRoute, SecuredRoute } from './components/Helpers/PrivateRoute';
 import EmployeeCreate from './components/EmployeeCreate';
 import FormValidate from './components/FormValidate';
-import AlertSuccessModal from './components/AlertSuccessModal'
+import AlertModal from './components/AlertModals/AlertModal'
 import { Button, Modal, Row, Container, Col, ButtonGroup } from 'react-bootstrap';
 import { ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -30,7 +30,7 @@ function App(props) {
         {/* (props.isLoading || props.emps.editLoading || props.emps.saveLoading )? */}
           <ToastContainer position='top-right' autoClose={2000}    hideProgressBar transition={Slide} />
               <Spinner/>   
-              <AlertSuccessModal/>
+              <AlertModal/>
             <div className="App">
               {
                  !props.login.loggedIn ?
@@ -56,7 +56,6 @@ function App(props) {
   );
 }
 const mapStateToProps = (state) =>  {
-  console.log(state)
   return {
     isLoading : state.loading,
     emps : state.emps,

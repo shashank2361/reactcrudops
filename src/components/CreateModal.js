@@ -8,12 +8,11 @@ import DatePicker from 'react-datepicker'
  import { useForm, Controller } from "react-hook-form";
 import moment from 'moment'
 import { SaveEmployeeAPI } from './Redux/Employees/employeeActions';
-//import { ErrorMessage } from '@hookform/error-message';
 
+//import { ErrorMessage } from '@hookform/error-message';
 
 function CreateModal(props) {
     // your form submit function which will invoke after successful validation
-
     const [initialState, setSubmitState] = useState({
         id: '',
         firstName: '', lastName : '',
@@ -29,7 +28,6 @@ function CreateModal(props) {
         e.preventDefault();
         // const form = e.currentTarget;
         // console.log(form.checkValidity())
-
         props.SaveEmployeeAPI(data)
      };
 
@@ -38,9 +36,7 @@ function CreateModal(props) {
          return new Date(date).toLocaleDateString()
     };
 
-
     const maxDate = '2050-12-31';
-
     const validationSchema = Yup.object().shape({
         firstName: Yup.string()
             .required('First Name is required'),
@@ -102,7 +98,6 @@ function CreateModal(props) {
          props.onCloseModal(false)
     }
 
-    // console.log(errors)
     return (
         <>
         <Modal

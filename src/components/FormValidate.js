@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{Fragment}from 'react'
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -10,8 +10,9 @@ import {  NavLink } from 'react-router-dom'
 import { GetAllLocation, SaveEmployeeAPI } from './Redux/Employees/employeeActions';
 import { connect } from 'react-redux';
 import Loader from 'react-loader-spinner';
+import AlertModal from './AlertModals/AlertModal';
 
-function FormValidate(props) {
+function FormValidate(props , ...others) {
 
 
     React.useEffect(() => {
@@ -122,21 +123,18 @@ function FormValidate(props) {
     console.log("errors :", errors.dob)
     return (
         <div className="card m-3">
-            { props.emps.saveLoading &&
-                <Modal size="sm" show={props.emps.saveLoading}
-                    onHide={handleClose}
-                    backdrop="static"
-                    keyboard={false}
-                >
-                    <Modal.Body bsPrefix="spinnerTop">
-                        <Loader type="Puff" color="#00BFFF" height={100}
-                            width={100} />
-                    </Modal.Body>
-                </Modal>
-            }
 
-            { props.emps.saveSuccess &&
-                <Modal size="sm" show={props.emps.saveSuccess}
+ 
+            {/* { props.emps.saveSuccess && */}
+
+            <>
+                     <AlertSuccessModal  >
+
+                    <NavLink to={'/Home'}> <Button variant="success" size="sm" >To Home Validate</Button> </NavLink>
+
+                </AlertSuccessModal> 
+
+                {/* <Modal size="sm" show={props.emps.saveSuccess}
                     onHide={handleClose}
                     backdrop="static"
                     keyboard={false}
@@ -149,8 +147,9 @@ function FormValidate(props) {
 
                         <Button variant="secondary" onClick={handleClose}>Close</Button>
                     </Modal.Footer>
-                </Modal>
-            }
+                </Modal> */}
+                </>
+            {/*   } */}
 
             <h5 className="card-header">React Form Validation Example with React Hook Form</h5>
             <div className="card-body">
@@ -288,3 +287,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(FormValidate)
 
 
 
+// { props.emps.saveLoading &&
+//     <Modal size="sm" show={props.emps.saveLoading}
+//         onHide={handleClose}
+//         backdrop="static"
+//         keyboard={false}
+//     >
+//         <Modal.Body bsPrefix="spinnerTop">
+//             <Loader type="Puff" color="#00BFFF" height={100}
+//                 width={100} />
+//         </Modal.Body>
+//     </Modal>
+// }

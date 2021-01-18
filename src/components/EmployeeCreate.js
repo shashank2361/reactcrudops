@@ -1,6 +1,4 @@
-import "react-datepicker/dist/react-datepicker.css";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+
 
 
 import React, { useState, useEffect } from 'react'
@@ -17,11 +15,14 @@ import Loader from 'react-loader-spinner'
 
 import LoadingOverlay from 'react-loading-overlay'
 
-import { confirmAlert } from 'react-confirm-alert'; // Import
 // import  DatePicker  from 'react-bootstrap-date-picker'
 import { NavLink } from 'react-router-dom';
 import { LogoutSuccess } from "./Redux/Login/loginAction";
+import { confirmAlert } from 'react-confirm-alert'; // Import
 
+import "react-datepicker/dist/react-datepicker.css";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 function EmployeeCreate(props) {
 

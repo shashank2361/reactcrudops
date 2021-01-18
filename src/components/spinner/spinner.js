@@ -5,30 +5,34 @@ import { connect } from 'react-redux';
 
 import './spinner.css';
 
-function spinner({ isLoading }) {
-    return (
-        <React.Fragment>
-          { isLoading ?      (  <>
-         <h1>Spinner</h1>
-         <Loader type="Puff" color="#00BFFF" height={100}
- width={100} />
-       <div id="spinner-fade">
-             <div className="default-spinner spinner-border" role="status"></div>
-         </div> 
-         </>
-         
-         )          : null}   
-        </React.Fragment>
-    )
+function spinner(props) {
+  return (
+    <React.Fragment>
+      { props.isLoading ? (<>
+      
+        
+        <div id="spinner-fade">
+          <div className="default-spinner spinner-border" role="status"></div>
+          <Loader type="Puff" color="#00BFFF" height={100}
+          width={100} />
+          
+        
+        </div>
+      </>
+
+      ) : null}
+    </React.Fragment>
+  )
 }
 
 const mapStateToProps = state => {
-    console.log(state)
- return {
-    isLoading : state.loading,
+  console.log(state.loading)
+  return {
+    isLoading: state.loading,
     emps: state.emps,
     login: state.login
-}};
+  }
+};
 
 
 export default connect(mapStateToProps)(spinner);

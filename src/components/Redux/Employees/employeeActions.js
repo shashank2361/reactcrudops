@@ -1,22 +1,14 @@
 import axios from 'axios'
-import { GETALL_FAILURE, GETALL_REQUEST, GETALL_SUCCESS } from '../Employees/employeeTypes';
-import {  OPEN_ALERT, TOGGLE_ALERT ,CLOSE_ALERT} from '../Alert/alertTypes'
- 
-import { EDIT_FAILURE, EDIT_REQUEST, EDIT_SUCCESS, GETALL_LOCATION, SAVE_REQUEST, SAVE_SUCCESS ,SAVE_FAILURE} from './employeeTypes'
+import { GETALL_FAILURE,  GETALL_SUCCESS } from '../Employees/employeeTypes';
+import {  OPEN_ALERT, CLOSE_ALERT} from '../Alert/alertTypes'
+import { EDIT_FAILURE,  EDIT_SUCCESS, GETALL_LOCATION,  SAVE_SUCCESS } from './employeeTypes'
 import moment from 'moment'
 
 import agent from '../../apis/api'
 import { TOGGLE_LOADER } from '../Loader/loadingTypes'
 import { toast } from 'react-toastify'
+import ErrorFunction from '../../Helpers/ErrorFunction';
 
-
-
-export const GetAllRequest = () => {
-
-    return {
-        type: GETALL_REQUEST 
-     }
-}
 
 export const GetAllSuccess = (employees) => {
     return {
@@ -47,19 +39,7 @@ export const SaveSuccess = (response) => {
       }
 }
 
-export const SaveFailed = (error) => {
-    return {
-        type: SAVE_FAILURE,
-        payload : error
-      }
-}
-
-// export const EditRequest = () => { 
-//     return {
-//         type: EDIT_REQUEST 
-//       }
-// } 
-
+ 
 export const EditSuccess = (employee) => {
     return {
         type: EDIT_SUCCESS,
@@ -77,11 +57,9 @@ export const EditFailure = (error) => {
 export const GetAllEmployees =   ()  =>{
    
     return(  dispatch => {
-            dispatch(GetAllRequest())
-
            agent.CrudOperations.getlistemployees()
                 .then(response => {
-            const employees = response.data
+            const employees = response.data;
             var newEmployees=  employees.map(object => ({ object , 
                                                         id: object.id , 
                                                         salary : object.salary ,
@@ -92,11 +70,10 @@ export const GetAllEmployees =   ()  =>{
                                                         gender : object.gender,
                                                         location : object.location
                                                 }))    
-              dispatch(GetAllSuccess(newEmployees))        
+         dispatch(GetAllSuccess(newEmployees))        
         })
         .catch(error => {
-            // error.message is the error message   
-            console.log(error.message)     
+             console.log(error.message)     
             dispatch(GetAllFailure(error.message))
          
             })
@@ -120,10 +97,7 @@ export const GetAllLocation = ( ) =>{
     }
 
 export const EditEmployeeAPI = (emp) => {
-
     return ((dispatch) => {
-      //  dispatch(EditRequest())
-
         dispatch({ type: TOGGLE_LOADER });
         dispatch({ type: CLOSE_ALERT });
         agent.CrudOperations.editEpmloyee({
@@ -139,27 +113,18 @@ export const EditEmployeeAPI = (emp) => {
             dispatch({ type: TOGGLE_LOADER });
             dispatch(EditSuccess(r.data))            
             dispatch({ type: OPEN_ALERT , payload : "The edit is successfull"});
-
             toast.success("The edit is successfull")
-            
-        })
-        .catch(e => {
-            dispatch({ type: TOGGLE_LOADER });
-            console.log("edit emp",e )
-            dispatch(EditFailure("Edit Employee Error"))
-
-        })
-
-
+        })   .catch((error) =>  ErrorFunction(error) );
     })
 }
 
+
 export const SaveEmployeeAPI = (emp) => {
- 
+
     return ((dispatch) => {
         dispatch({ type: TOGGLE_LOADER });
+        dispatch({ type: CLOSE_ALERT });
 
-//        dispatch(SaveRequest())
         agent.CrudOperations.saveEmployee( {
             firstName: emp.firstName,
             lastName : emp.lastName,
@@ -171,19 +136,19 @@ export const SaveEmployeeAPI = (emp) => {
          })
         .then(r => {
             dispatch({ type: TOGGLE_LOADER });
-
+            dispatch({ type: OPEN_ALERT , payload : "The update is  successfull"});
+            toast.success("Sucess " + "Save Success") 
             dispatch(SaveSuccess(r.data))
+            
         })
-        .catch(e => {
-
-            dispatch({ type: TOGGLE_LOADER });
-            console.log(e.message)
-            dispatch(SaveFailed(e.message))
-        })
-
-
+        .catch((error) =>  ErrorFunction(error) );
     })
 }
+
+
+
+
+
 
     // axios
     // .get('https://localhost:44389/Employee' , { headers: authHeader()   })    

@@ -4,6 +4,17 @@ const initialState = {
     open : false,
     message : ''
 }
+
+const modalState = {  
+
+    heading: '',
+    content: '',
+    confirmButtonText: '',
+    confirmButtonAction: '',
+    open: false
+
+}
+
 const alertReducer =   (state = initialState, action) => {
      
     switch (action.type) {

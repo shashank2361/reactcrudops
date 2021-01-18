@@ -13,8 +13,11 @@ import { Redirect } from "react-router-dom";
 import Loader from 'react-loader-spinner';
 
 import { NavLink } from 'react-router-dom';
+import ConfirmModal from './AlertModals/ConfirmModal';
 // import { ValidationError } from 'yup';
 //useHistory
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 
 function Home(props) {
@@ -24,6 +27,7 @@ function Home(props) {
         editId: 0
     }
 
+   
     const [employeeState, setEmployees] = useState(initilState)
     const [showCreateModal, setShowCreateModal] = useState(false)
     const [showEditModal, setshowEditModal] = useState(false)
@@ -46,10 +50,14 @@ function Home(props) {
     
     const deleteClick = (e, id) => {
         e.preventDefault();
-        setshowEditModal(true)
-         const newSt = { ...employeeState, showModal: true, editId: id }
-        console.log(newSt)
-        setEmployees(newSt);
+                ConfirmModal(handleClickDelete);
+        // if(window.confirm("Are you sure"))
+        // {
+ 
+  
+    }
+    function  handleClickDelete(){
+        alert("deleted")
     }
 
     const editClick = (e, id) => {
@@ -110,7 +118,6 @@ function Home(props) {
                                 </tr>))
                         }
                         </tbody>
-
                         { props.emps && props.emps?.employees.length > 1 && showEditModal &&  
                             <EditModal open={showEditModal} close={ () =>  setshowEditModal(false)} >
                                 <EditEmployee 
@@ -122,15 +129,10 @@ function Home(props) {
                             </EditModal>
                         }
                     </table>
-
-                   { !props?.emps?.error && showCreateModal &&  <CreateModal show={showCreateModal} onCloseModal={ () => setShowCreateModal(false)} /> }
-
-
-                </Col>
+                   {  <CreateModal show={showCreateModal} onCloseModal={ () => setShowCreateModal(false)} /> }
+                   {/* showCreateModal &&  */}
                 
-              
-
-           
+                </Col>
         </Fragment>
     )
 }
