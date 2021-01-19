@@ -1,37 +1,25 @@
 import React, {  Fragment } from 'react'
 import { connect } from 'react-redux'
 import { loginAPIRequest } from './Redux/Login/loginAction';
-import { toast } from 'react-toastify';
-
-// import { history } from './Helpers/history'
-// import { Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-function LoginContainer(props) {
+function LoginContainer({dispatchLoginAPIRequest}) {
     const { register, handleSubmit, errors, formState } = useForm({
         mode: "onChange"
     });
 
-    const { dirtyFields, isSubmitted, submitCount, touched, isDirty, isSubmitting, isSubmitSuccessful,
-        isValid, } = formState;
-
+    //const { dirtyFields, isSubmitted, submitCount, touched, isDirty, isSubmitting, isSubmitSuccessful,
+    //   isValid, } = formState;
+    const {   isSubmitted } = formState;
     const onSubmit = (data, e) => {        
-        // alert(JSON.stringify(data));
         e.preventDefault();
-        props.loginAPIRequest({
+        dispatchLoginAPIRequest({
             username: data.username,
             password: data.password
         } )
     };
-
-    // console.log(errors , formState)
-    // console.log(dirtyFields, isSubmitted, submitCount, touched, isDirty, isSubmitting, isSubmitSuccessful, isValid)
     return (
         <Fragment>
-
-            {props.login.loggedIn}
-            {props.login.loading && <h2>Loading.div.</h2>}
-            {props?.location?.state?.bio && <h4> You can login with your credentials {props.location.state.bio}</h4>}
             <div className="alert alert-info h2">Login</div>
             <div className="">
                 <div className="alert alert-info">
@@ -55,7 +43,7 @@ function LoginContainer(props) {
                     </div>
                     <div className="form-group">
                         <button type="submit" className="btn btn-primary">Login</button>
-                        {isSubmitted && props.login.loading &&
+                        {isSubmitted   &&
                             <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                         }
                     </div>
@@ -65,22 +53,17 @@ function LoginContainer(props) {
     )
 }
 
-
-const mapStateToProps = (state) => {
-    console.log(state.login)
-    return {
-        login: state.login
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-
-    return {
-        loginAPIRequest: (state) => dispatch(loginAPIRequest(state))
-    }
-}
-
+const mapStateToProps = (state) =>  ({ login: state.login })
+const mapDispatchToProps = (dispatch) => ({   dispatchLoginAPIRequest: (state) => dispatch(loginAPIRequest(state)) })
 export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
+
+
+
+
+   {/* {props.login.loggedIn}
+            {props.login.loading && <h2>Loading.div.</h2>} */}
+
+            {/* {props?.location?.state?.bio && <h4> You can login with your credentials {props.location.state.bio}</h4>} */}
 
 
 {/* {props.login.loading ? <h2>Loading.div............</h2>  : null}   */ }

@@ -1,23 +1,23 @@
 import React from 'react'
-import { Spinner, Modal } from 'react-bootstrap';
-import Loader from 'react-loader-spinner';
-import { connect } from 'react-redux';
+ import { connect } from 'react-redux';
 
 import './spinner.css';
 
 function spinner(props) {
   return (
     <React.Fragment>
-      { props.isLoading ? (<>
-      
-        
+      { props.isLoading ? (
+      <>
+
+ 
         <div id="spinner-fade">
-          <div className="default-spinner spinner-border" role="status"></div>
-          <Loader type="Puff" color="#00BFFF" height={100}
-          width={100} />
-          
+
+           <div className="default-spinner   spinner-border" role="status">
+            
+          </div> 
+        </div>  
         
-        </div>
+
       </>
 
       ) : null}
@@ -36,6 +36,10 @@ const mapStateToProps = state => {
 
 
 export default connect(mapStateToProps)(spinner);
+
+// import Loader from 'react-loader-spinner';
+
+          {/* <Loader type="ThreeDots" color="#00BFFF" height={80} width={100} />       */}
 
 
 // <Modal   size="sm" show={true} dialogClassName={"SpinnerModal"}

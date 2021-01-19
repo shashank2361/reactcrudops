@@ -27,8 +27,7 @@ function App(props) {
     <Fragment>
       <Container>
         <Row>
-        {/* (props.isLoading || props.emps.editLoading || props.emps.saveLoading )? */}
-          <ToastContainer position='top-right' autoClose={2000}    hideProgressBar transition={Slide} />
+           <ToastContainer position='top-right' autoClose={2000}    hideProgressBar transition={Slide} />
               <Spinner/>   
               <AlertModal/>
             <div className="App">

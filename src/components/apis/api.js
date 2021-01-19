@@ -111,7 +111,7 @@ const requests = {
     get: (url) => axios.get(url).then(responseBody),
     post: (url, body) => axios.post(url, body).then(responseBody),
     put: (url, body) => axios.put(url, body).then(responseBody) ,
-    del: (url) => axios.delete(url).then(responseBody)
+    del : (url) =>axios.delete(url).then(responseBody)
 }
 
 // post: (url, body) => axios.post(url, body).then(sleep(5000)).then(responseBody),
@@ -121,7 +121,8 @@ const CrudOperations = {
     getlistemployees: () => requests.get('/Employee'),
     saveEmployee: (employee) => requests.post('/Save', employee),
     editEpmloyee: (employee) => requests.put('/Employee', employee),
-    getLocations: () => requests.get('/GetLocations')
+    getLocations: () => requests.get('/GetLocations'),
+    deleteEmployee : (id) => requests.del(`/Delete/${id}`),
 }
 
 const User = {

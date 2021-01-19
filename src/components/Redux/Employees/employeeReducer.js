@@ -1,5 +1,4 @@
-import { findAllByTestId } from "@testing-library/react"
- import { GETALL_REQUEST ,  GETALL_SUCCESS , GETALL_FAILURE, EDIT_FAILURE, EDIT_REQUEST, EDIT_SUCCESS, GETALL_LOCATION, SAVE_FAILURE, SAVE_REQUEST, SAVE_SUCCESS } from "./employeeTypes"
+ import { GETALL_REQUEST ,  GETALL_SUCCESS , GETALL_FAILURE, EDIT_FAILURE, EDIT_REQUEST, EDIT_SUCCESS, GETALL_LOCATION, DELETE_SUCCESS, SAVE_REQUEST, SAVE_SUCCESS } from "./employeeTypes"
 //  
 
 const intialState = {
@@ -66,6 +65,14 @@ const employeeReducer = (state = intialState, action) => {
                 error: ''
             }
        
+            case DELETE_SUCCESS:
+                return {
+                   ...state   ,  employees : state.employees.filter(function(employee, index, arr){ 
+                    return employee.id != action.payload;
+                }) , saveSuccess : true
+                }
+
+
         default: return state
 
     }

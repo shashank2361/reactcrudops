@@ -2,11 +2,11 @@ import React, {Fragment, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import Moment from 'react-moment';
 // import moment from 'moment'
-import { GetAllEmployees } from './Redux/Employees/employeeActions';
+import { GetAllEmployees , DeleteEmployeeAPI } from './Redux/Employees/employeeActions';
 import { LogoutSuccess } from './Redux/Login/loginAction';
-import EditModal from './EditModal'
-import EditEmployee from './EditEmployee';
-import CreateModal from './CreateModal';
+import EditModal from './FormModals/EditModal'
+import EditEmployee from './FormModals/EditEmployee';
+import CreateModal from './FormModals/CreateModal';
 import { Button, Row, Container, Col, ButtonGroup ,Modal } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
 
@@ -32,15 +32,13 @@ function Home(props) {
     const [showCreateModal, setShowCreateModal] = useState(false)
     const [showEditModal, setshowEditModal] = useState(false)
     const [editId, seteditId] = useState(0)
-
+  
     useEffect(() => {
             props.GetAllEmployees();
-     }, [ showEditModal , showCreateModal  ])
-
-    const refreshPage = (val) =>{
-     //   window.location.reload(false);
-         props.history.push('/home');
-    }
+ 
+     }, [ showEditModal , showCreateModal   ,   props.dispatchDeleteEmployeeAPI   ])
+    //props.emps.saveSuccess  
+ 
 
     const handleLogout = (e) => {
         e.preventDefault();
@@ -50,22 +48,23 @@ function Home(props) {
     
     const deleteClick = (e, id) => {
         e.preventDefault();
-                ConfirmModal(handleClickDelete);
+        //  setdeleteId(id);
+                ConfirmModal(handleClickDelete , id);
         // if(window.confirm("Are you sure"))
         // {
  
   
     }
-    function  handleClickDelete(){
-        alert("deleted")
+    function  handleClickDelete(id){
+         console.log(id)
+       props.dispatchDeleteEmployeeAPI(id)
     }
 
     const editClick = (e, id) => {
         e.preventDefault();
         setshowEditModal(true)
         seteditId(id)
- 
-    }
+     }
 
     const openCloseModal = (val) => {
         setshowEditModal(false)
@@ -152,7 +151,8 @@ const mapDispatchToProps = (dispatch) => {
 
     return {
         LogoutSuccess: () => dispatch(LogoutSuccess()),
-        GetAllEmployees: () => dispatch(GetAllEmployees())
+        GetAllEmployees: () => dispatch(GetAllEmployees()),
+        dispatchDeleteEmployeeAPI : (id) =>  dispatch(DeleteEmployeeAPI(id))
 
     }
 }

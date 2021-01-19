@@ -1,6 +1,10 @@
+// Not used anymore Just for refrence
+
 import jwt_decode from "jwt-decode";
 
 export const checkAuth = () => {
+
+
 
     const userobj = JSON.parse(localStorage.getItem('userObj'));
     

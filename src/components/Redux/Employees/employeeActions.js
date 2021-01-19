@@ -1,7 +1,6 @@
 import axios from 'axios'
-import { GETALL_FAILURE,  GETALL_SUCCESS } from '../Employees/employeeTypes';
 import {  OPEN_ALERT, CLOSE_ALERT} from '../Alert/alertTypes'
-import { EDIT_FAILURE,  EDIT_SUCCESS, GETALL_LOCATION,  SAVE_SUCCESS } from './employeeTypes'
+import { GETALL_FAILURE,  GETALL_SUCCESS ,EDIT_FAILURE,  EDIT_SUCCESS, GETALL_LOCATION,  SAVE_SUCCESS , DELETE_SUCCESS } from '../Employees/employeeTypes'
 import moment from 'moment'
 
 import agent from '../../apis/api'
@@ -53,6 +52,16 @@ export const EditFailure = (error) => {
         payload : error
       }
 } 
+
+
+
+export const DeleteSuccess = (id) => {
+    return {
+        type: DELETE_SUCCESS,
+        payload : id
+      }
+} 
+
 
 export const GetAllEmployees =   ()  =>{
    
@@ -120,7 +129,6 @@ export const EditEmployeeAPI = (emp) => {
 
 
 export const SaveEmployeeAPI = (emp) => {
-
     return ((dispatch) => {
         dispatch({ type: TOGGLE_LOADER });
         dispatch({ type: CLOSE_ALERT });
@@ -144,6 +152,25 @@ export const SaveEmployeeAPI = (emp) => {
         .catch((error) =>  ErrorFunction(error) );
     })
 }
+
+export const DeleteEmployeeAPI = (id) => {
+
+    return ((dispatch) => {
+        dispatch({ type: TOGGLE_LOADER });
+        dispatch({ type: CLOSE_ALERT });
+
+        agent.CrudOperations.deleteEmployee(id)
+        .then(r => {
+            dispatch({ type: TOGGLE_LOADER });
+            dispatch({ type: OPEN_ALERT , payload : "The Deletion of employee is  successfull"});
+            toast.success("Sucess " + "Delete Success") 
+            dispatch(DeleteSuccess(id))
+            
+        })
+        .catch((error) =>  ErrorFunction(error) );
+    })
+}
+
 
 
 

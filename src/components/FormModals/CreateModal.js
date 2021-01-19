@@ -7,7 +7,7 @@ import { Button, Modal, Form, Row, Col } from 'react-bootstrap';
 import DatePicker from 'react-datepicker'
  import { useForm, Controller } from "react-hook-form";
 import moment from 'moment'
-import { SaveEmployeeAPI } from './Redux/Employees/employeeActions';
+import { SaveEmployeeAPI } from '../Redux/Employees/employeeActions';
 
 //import { ErrorMessage } from '@hookform/error-message';
 

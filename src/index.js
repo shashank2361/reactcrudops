@@ -16,12 +16,12 @@ ReactDOM.render(
     <Provider store={store}>
 
     
-          <BrowserRouter>
+          {/* <BrowserRouter>
         <App />
-        </BrowserRouter>  
-        {/* <Router history={history}>
+        </BrowserRouter>   */}
+         <Router history={history}>
           <App/>
-        </Router> */}
+        </Router> 
     </Provider>  ,
   // </React.StrictMode>,
   document.getElementById('root')

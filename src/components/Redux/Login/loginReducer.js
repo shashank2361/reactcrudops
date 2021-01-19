@@ -22,13 +22,8 @@ const initialState = userobj ? {
 }  : defaultState;
 
 const loginReducer = (state = initialState, action) => {
-    console.log(action)
-     switch (action.type) {
-        case LOGIN_REQUEST:
-            return {
-                ...state, loading: true
-            }
 
+     switch (action.type) {
         case LOGIN_SUCCESS:
             return {
                ...state,   loading: false,
@@ -59,3 +54,9 @@ const loginReducer = (state = initialState, action) => {
 }
 
 export default loginReducer;
+
+
+// case LOGIN_REQUEST:
+        //     return {
+        //         ...state, loading: true
+        //     }

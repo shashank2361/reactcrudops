@@ -7,11 +7,11 @@
 
 const baseUrl = "http://localhost:44389/";
    
-export const LoginRequest = () => {
-    return {
-        type: LOGIN_REQUEST 
-     }
-}
+// export const LoginRequest = () => {
+//     return {
+//         type: LOGIN_REQUEST 
+//      }
+// }
 
 export const LoginSuccess = userObj => {
     return {
@@ -42,28 +42,20 @@ export const RefreshToken = (userObj) => {
             agent.User.refreshToken(userObj).then(response => {
             const userObj = response.data
             console.log(JSON.stringify(userObj) , response)
-             localStorage.setItem('userObj', JSON.stringify(userObj));
-           
-        //    dispatch(LoginSuccess(userObj))
-        //      history.push('/Home')
          })
         .catch(error => {
-            // error.message is the error message
             console.log(error)
-            // dispatch(LoginFailure(error.data.title))
+            dispatch( LogoutSuccess())
         })
-
     }
-
 }
 
 
 export const loginAPIRequest = (user  ) => {
     console.log(user)
     return (dispatch) => {
-            dispatch(LoginRequest())
+            // dispatch(LoginRequest())
             dispatch({ type: TOGGLE_LOADER });
-
            agent.User.login(user).then(response => {
             const userObj = response.data
             console.log(JSON.stringify(userObj) , response)
@@ -74,9 +66,9 @@ export const loginAPIRequest = (user  ) => {
               history.push('/Home')
          }).then(    () => toast.success("Logged In Successfully!")    ) 
         .catch(error => {
-            // error.message is the error message
-            console.log(error)
-            dispatch(LoginFailure("error?.data?.title"))
+             console.log(error)
+            dispatch({ type: TOGGLE_LOADER });
+            dispatch(LoginFailure("Login Failed"))
             toast.error("Login Failed")
         })
 
